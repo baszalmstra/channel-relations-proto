@@ -1,0 +1,16 @@
+[workspace]
+authors = ["Bas Zalmstra <4995967+baszalmstra@users.noreply.github.com>"]
+channels = ["conda-forge"]
+name = "channel-relations-proto"
+platforms = ["win-64", "linux-64", "osx-arm64"]
+version = "0.1.0"
+
+[tasks]
+install = "npm install"
+dev = { cmd = "npx vite", depends-on = ["install"] }
+build = { cmd = "npx vite build", depends-on = ["install"] }
+test = { cmd = "npx vitest run", depends-on = ["install"] }
+preview = { cmd = "npx vite preview", depends-on = ["build"] }
+
+[dependencies]
+nodejs = ">=20"

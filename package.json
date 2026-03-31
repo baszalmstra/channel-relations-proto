@@ -1,0 +1,23 @@
+{
+  "name": "channel-relations-proto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/d3": "^7.4.3",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.3",
+    "vitest": "^4.1.2"
+  },
+  "dependencies": {
+    "@dagrejs/dagre": "^3.0.0",
+    "d3": "^7.9.0"
+  }
+}

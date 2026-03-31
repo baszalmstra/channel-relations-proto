@@ -1,0 +1,12 @@
+# pixi environments
+.pixi/*
+!.pixi/config.toml
+
+# npm
+node_modules/
+
+# build output
+dist/
+
+# editor
+.claude/

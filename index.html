@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Channel Relations - Interactive Visualization</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Channel Relations in Repodata</h1>
+      <p class="subtitle">
+        Interactive visualization of the
+        <a href="https://github.com/conda/ceps" target="_blank">CEP</a>
+        channel relations resolution algorithm
+      </p>
+    </header>
+
+    <main>
+      <div class="layout">
+        <aside class="sidebar">
+          <section class="panel" id="presets-panel">
+            <h2>Examples</h2>
+            <div id="presets"></div>
+          </section>
+
+          <section class="panel" id="channels-panel">
+            <h2>Channel Definitions</h2>
+            <p class="hint">Define channels and their declared relations.</p>
+            <div id="channel-editor"></div>
+            <button id="add-channel" class="btn btn-secondary">+ Add Channel</button>
+          </section>
+
+          <section class="panel" id="user-channels-panel">
+            <h2>User-Specified Channels</h2>
+            <p class="hint">
+              Channels the user passes via <code>-c</code> flags, in order
+              (highest priority first).
+            </p>
+            <div id="user-channels"></div>
+            <button id="add-user-channel" class="btn btn-secondary">+ Add</button>
+          </section>
+
+          <button id="resolve-btn" class="btn btn-primary">Resolve</button>
+        </aside>
+
+        <div class="main-content">
+          <section class="panel" id="graph-panel">
+            <h2>Relation Graph</h2>
+            <div id="graph-container">
+              <svg id="graph-svg"></svg>
+            </div>
+            <div id="graph-legend" class="legend">
+              <span class="legend-item"><span class="edge-sample user-edge"></span> User</span>
+              <span class="legend-item"><span class="edge-sample base-edge"></span> Base</span>
+              <span class="legend-item"><span class="edge-sample override-edge"></span> Override</span>
+              <span class="legend-item"><span class="edge-sample ignored-edge"></span> Ignored</span>
+            </div>
+          </section>
+
+          <section class="panel" id="result-panel">
+            <h2>Resolved Channel Order</h2>
+            <div id="result"></div>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
