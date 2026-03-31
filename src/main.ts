@@ -204,6 +204,8 @@ function addUserChannel(): void {
 // ── Resolution ────────────────────────────────────────────────────────
 
 function resolve(): void {
+  stateToHash();
+
   const registry: ChannelRegistry = new Map();
   for (const entry of channels) {
     registry.set(entry.name, { ...entry.relations });
@@ -243,6 +245,48 @@ function resolve(): void {
     }
 
     resultDiv.innerHTML = html;
+  }
+}
+
+// ── URL sharing ───────────────────────────────────────────────────────
+
+interface ShareState {
+  c: Array<{ n: string; b?: string; o?: string }>; // channels
+  u: string[]; // user channels
+}
+
+function stateToHash(): void {
+  const state: ShareState = {
+    c: channels.map((ch) => {
+      const entry: ShareState["c"][number] = { n: ch.name };
+      if (ch.relations.base) entry.b = ch.relations.base;
+      if (ch.relations.overrides) entry.o = ch.relations.overrides;
+      return entry;
+    }),
+    u: userChannels,
+  };
+  const json = JSON.stringify(state);
+  const hash = btoa(json);
+  history.replaceState(null, "", `#${hash}`);
+}
+
+function loadFromHash(): boolean {
+  const hash = location.hash.slice(1);
+  if (!hash) return false;
+  try {
+    const json = atob(hash);
+    const state: ShareState = JSON.parse(json);
+    channels = state.c.map((entry) => ({
+      name: entry.n,
+      relations: {
+        ...(entry.b ? { base: entry.b } : {}),
+        ...(entry.o ? { overrides: entry.o } : {}),
+      },
+    }));
+    userChannels = state.u;
+    return true;
+  } catch {
+    return false;
   }
 }
 
@@ -296,11 +340,27 @@ codeTabBtns.forEach((btn) => {
 
 // ── Init ──────────────────────────────────────────────────────────────
 
+const shareBtn = document.getElementById("share-btn")!;
+
 addChannelBtn.addEventListener("click", addChannel);
 addUserChannelBtn.addEventListener("click", addUserChannel);
 resolveBtn.addEventListener("click", resolve);
+shareBtn.addEventListener("click", () => {
+  stateToHash();
+  navigator.clipboard.writeText(location.href).then(() => {
+    shareBtn.textContent = "Copied!";
+    setTimeout(() => { shareBtn.textContent = "Copy Link"; }, 1500);
+  });
+});
 
 renderPresets();
 renderCode(activeCodeFile);
-// Load the first preset by default
-loadPreset(PRESETS[0]);
+
+// Load from URL hash if present, otherwise load first preset
+if (loadFromHash()) {
+  renderChannelEditor();
+  renderUserChannels();
+  resolve();
+} else {
+  loadPreset(PRESETS[0]);
+}

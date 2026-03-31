@@ -100,6 +100,20 @@ main {
   transition: background 0.15s;
 }
 
+.sidebar-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.sidebar-actions .btn-primary {
+  flex: 1;
+}
+
+.sidebar-actions .btn-secondary {
+  flex: 0 0 auto;
+  width: auto;
+}
+
 .btn-primary {
   background: #3b82f6;
   color: #fff;
