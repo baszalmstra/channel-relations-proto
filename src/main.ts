@@ -2,14 +2,7 @@ import { resolveChannelPriority } from "./algorithm/index.js";
 import type { ChannelRegistry, ChannelRelations } from "./algorithm/index.js";
 import { renderGraph } from "./renderer/dag-renderer.js";
 import { PRESETS, type Preset } from "./ui/presets.js";
-import hljs from "highlight.js/lib/core";
-import typescript from "highlight.js/lib/languages/typescript";
-import "highlight.js/styles/github.css";
-import typesSource from "./algorithm/types.ts?raw";
-import resolveSource from "./algorithm/resolve.ts?raw";
 import "./style.css";
-
-hljs.registerLanguage("typescript", typescript);
 
 // ── State ──────────────────────────────────────────────────────────────
 
@@ -298,46 +291,6 @@ function escapeHtml(s: string): string {
   return div.innerHTML;
 }
 
-// ── Tabs ──────────────────────────────────────────────────────────────
-
-const tabBtns = document.querySelectorAll<HTMLButtonElement>(".tab-btn");
-const tabContents = document.querySelectorAll<HTMLElement>(".tab-content");
-
-tabBtns.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const target = btn.dataset.tab!;
-    tabBtns.forEach((b) => b.classList.toggle("active", b === btn));
-    tabContents.forEach((c) =>
-      c.classList.toggle("active", c.id === `tab-${target}`)
-    );
-  });
-});
-
-// ── Code viewer ───────────────────────────────────────────────────────
-
-const codeFiles: Record<string, string> = {
-  types: typesSource,
-  resolve: resolveSource,
-};
-
-const codeContainer = document.getElementById("code-container")!;
-const codeTabBtns = document.querySelectorAll<HTMLButtonElement>(".code-tab-btn");
-let activeCodeFile = "types";
-
-function renderCode(fileKey: string): void {
-  activeCodeFile = fileKey;
-  codeTabBtns.forEach((b) =>
-    b.classList.toggle("active", b.dataset.file === fileKey)
-  );
-  const source = codeFiles[fileKey] ?? "";
-  const highlighted = hljs.highlight(source, { language: "typescript" }).value;
-  codeContainer.innerHTML = `<pre><code class="hljs language-typescript">${highlighted}</code></pre>`;
-}
-
-codeTabBtns.forEach((btn) => {
-  btn.addEventListener("click", () => renderCode(btn.dataset.file!));
-});
-
 // ── Init ──────────────────────────────────────────────────────────────
 
 const shareBtn = document.getElementById("share-btn")!;
@@ -354,7 +307,6 @@ shareBtn.addEventListener("click", () => {
 });
 
 renderPresets();
-renderCode(activeCodeFile);
 
 // Load from URL hash if present, otherwise load first preset
 if (loadFromHash()) {

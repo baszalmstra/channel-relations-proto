@@ -294,100 +294,6 @@ main {
   font-family: ui-monospace, monospace;
 }
 
-/* ── Tabs ────────────────────────────────────────────────────────── */
-
-.tabs {
-  display: flex;
-  gap: 0;
-  margin-bottom: 0;
-  border-bottom: 2px solid #e2e8f0;
-}
-
-.tab-btn {
-  cursor: pointer;
-  background: none;
-  border: none;
-  padding: 0.6rem 1.25rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #64748b;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -2px;
-  transition: color 0.15s, border-color 0.15s;
-}
-
-.tab-btn:hover {
-  color: #334155;
-}
-
-.tab-btn.active {
-  color: #3b82f6;
-  border-bottom-color: #3b82f6;
-}
-
-.tab-content {
-  display: none;
-}
-
-.tab-content.active {
-  display: block;
-}
-
-/* ── Code viewer ─────────────────────────────────────────────────── */
-
-.code-file-tabs {
-  display: flex;
-  gap: 0;
-  border-bottom: 1px solid #e2e8f0;
-  margin: -1rem -1rem 0 -1rem;
-  padding: 0 0.5rem;
-  background: #f8fafc;
-  border-radius: 8px 8px 0 0;
-}
-
-.code-tab-btn {
-  cursor: pointer;
-  background: none;
-  border: none;
-  padding: 0.5rem 1rem;
-  font-size: 0.8rem;
-  font-weight: 500;
-  font-family: ui-monospace, monospace;
-  color: #64748b;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
-  transition: color 0.15s, border-color 0.15s;
-}
-
-.code-tab-btn:hover {
-  color: #334155;
-}
-
-.code-tab-btn.active {
-  color: #1e293b;
-  border-bottom-color: #3b82f6;
-  background: #fff;
-}
-
-#code-container {
-  margin: 0 -1rem -1rem -1rem;
-  overflow: auto;
-  max-height: 600px;
-}
-
-#code-container pre {
-  margin: 0;
-  padding: 1rem;
-  font-size: 0.82rem;
-  line-height: 1.6;
-  background: #fff;
-  border-radius: 0 0 8px 8px;
-}
-
-#code-container code {
-  font-family: ui-monospace, "Cascadia Code", "Fira Code", Menlo, Consolas, monospace;
-}
-
 /* ── Graph ───────────────────────────────────────────────────────── */
 
 #graph-panel {
@@ -451,6 +357,17 @@ main {
     transparent 4px,
     transparent 8px
   );
+}
+
+.code-link {
+  margin-left: auto;
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.code-link:hover {
+  text-decoration: underline;
 }
 
 /* ── Result ──────────────────────────────────────────────────────── */
