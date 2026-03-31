@@ -28,11 +28,6 @@
     <main>
       <div class="layout">
         <aside class="sidebar">
-          <section class="panel" id="presets-panel">
-            <h2>Examples</h2>
-            <div id="presets"></div>
-          </section>
-
           <section class="panel" id="channels-panel">
             <h2>Channel Definitions</h2>
             <p class="hint">Define channels and their declared relations.</p>
@@ -40,6 +35,18 @@
             <button id="add-channel" class="btn btn-secondary">+ Add Channel</button>
           </section>
 
+          <section class="panel" id="presets-panel">
+            <h2>Examples</h2>
+            <div id="presets"></div>
+          </section>
+
+          <div class="sidebar-actions">
+            <button id="resolve-btn" class="btn btn-primary">Resolve</button>
+            <button id="share-btn" class="btn btn-secondary">Copy Link</button>
+          </div>
+        </aside>
+
+        <div class="main-content">
           <section class="panel" id="user-channels-panel">
             <h2>User-Specified Channels</h2>
             <p class="hint">
@@ -50,13 +57,6 @@
             <button id="add-user-channel" class="btn btn-secondary">+ Add</button>
           </section>
 
-          <div class="sidebar-actions">
-            <button id="resolve-btn" class="btn btn-primary">Resolve</button>
-            <button id="share-btn" class="btn btn-secondary">Copy Link</button>
-          </div>
-        </aside>
-
-        <div class="main-content">
           <section class="panel" id="graph-panel">
             <h2>Relation Graph</h2>
             <div id="graph-container">
