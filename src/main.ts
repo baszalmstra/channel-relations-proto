@@ -23,7 +23,6 @@ const resultDiv = document.getElementById("result")!;
 const graphSvg = document.getElementById("graph-svg") as unknown as SVGSVGElement;
 const addChannelBtn = document.getElementById("add-channel")!;
 const addUserChannelBtn = document.getElementById("add-user-channel")!;
-const resolveBtn = document.getElementById("resolve-btn")!;
 
 // ── Preset rendering ──────────────────────────────────────────────────
 
@@ -297,7 +296,6 @@ const shareBtn = document.getElementById("share-btn")!;
 
 addChannelBtn.addEventListener("click", addChannel);
 addUserChannelBtn.addEventListener("click", addUserChannel);
-resolveBtn.addEventListener("click", resolve);
 shareBtn.addEventListener("click", () => {
   stateToHash();
   navigator.clipboard.writeText(location.href).then(() => {
