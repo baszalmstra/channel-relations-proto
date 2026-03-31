@@ -23,6 +23,21 @@ header {
   padding: 1.25rem 2rem;
 }
 
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.github-link {
+  color: #94a3b8;
+  transition: color 0.15s;
+}
+
+.github-link:hover {
+  color: #f1f5f9;
+}
+
 header h1 {
   font-size: 1.4rem;
   font-weight: 600;
