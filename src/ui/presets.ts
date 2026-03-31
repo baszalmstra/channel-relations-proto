@@ -93,9 +93,9 @@ export const PRESETS: Preset[] = [
   {
     name: "Cycle via override (error)",
     description:
-      "channel-a bases on channel-b, but channel-b also declares it overrides channel-a, creating a contradictory cycle.",
+      "channel-a overrides channel-b, but channel-b also overrides channel-a, creating a cycle.",
     channels: {
-      "channel-a": { base: "channel-b" },
+      "channel-a": { overrides: "channel-b" },
       "channel-b": { overrides: "channel-a" },
     },
     userChannels: ["channel-a"],
