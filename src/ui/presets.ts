@@ -60,11 +60,54 @@ export const PRESETS: Preset[] = [
     userChannels: ["bioconda", "conda-forge"],
   },
   {
+    name: "Override with base chain",
+    description:
+      "A hotfix channel overrides bioconda, which bases on conda-forge. User only specifies the hotfix channel.",
+    channels: {
+      "my-hotfixes": { overrides: "bioconda" },
+      bioconda: { base: "conda-forge" },
+      "conda-forge": {},
+    },
+    userChannels: ["my-hotfixes"],
+  },
+  {
+    name: "Two overrides (chain)",
+    description:
+      "conda-forge/label/rc overrides conda-forge, and conda-forge/label/dev overrides conda-forge/label/rc, forming a chain of overrides.",
+    channels: {
+      "conda-forge/label/dev": { overrides: "conda-forge/label/rc" },
+      "conda-forge/label/rc": { overrides: "conda-forge" },
+      "conda-forge": {},
+    },
+    userChannels: ["conda-forge/label/dev"],
+  },
+  {
     name: "Cycle (error)",
     description: "Two channels declare each other as base, creating a cycle.",
     channels: {
       "channel-a": { base: "channel-b" },
       "channel-b": { base: "channel-a" },
+    },
+    userChannels: ["channel-a"],
+  },
+  {
+    name: "Cycle via override (error)",
+    description:
+      "channel-a bases on channel-b, but channel-b also declares it overrides channel-a, creating a contradictory cycle.",
+    channels: {
+      "channel-a": { base: "channel-b" },
+      "channel-b": { overrides: "channel-a" },
+    },
+    userChannels: ["channel-a"],
+  },
+  {
+    name: "Transitive cycle (error)",
+    description:
+      "Three channels form a cycle: a bases on b, b bases on c, c bases on a.",
+    channels: {
+      "channel-a": { base: "channel-b" },
+      "channel-b": { base: "channel-c" },
+      "channel-c": { base: "channel-a" },
     },
     userChannels: ["channel-a"],
   },

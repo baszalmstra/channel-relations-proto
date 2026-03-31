@@ -45,18 +45,35 @@
         </aside>
 
         <div class="main-content">
-          <section class="panel" id="graph-panel">
-            <h2>Relation Graph</h2>
-            <div id="graph-container">
-              <svg id="graph-svg"></svg>
-            </div>
-            <div id="graph-legend" class="legend">
-              <span class="legend-item"><span class="edge-sample user-edge"></span> User</span>
-              <span class="legend-item"><span class="edge-sample base-edge"></span> Base</span>
-              <span class="legend-item"><span class="edge-sample override-edge"></span> Override</span>
-              <span class="legend-item"><span class="edge-sample ignored-edge"></span> Ignored</span>
-            </div>
-          </section>
+          <div class="tabs">
+            <button class="tab-btn active" data-tab="graph">Graph</button>
+            <button class="tab-btn" data-tab="code">Algorithm Code</button>
+          </div>
+
+          <div class="tab-content active" id="tab-graph">
+            <section class="panel" id="graph-panel">
+              <h2>Relation Graph</h2>
+              <div id="graph-container">
+                <svg id="graph-svg"></svg>
+              </div>
+              <div id="graph-legend" class="legend">
+                <span class="legend-item"><span class="edge-sample user-edge"></span> User</span>
+                <span class="legend-item"><span class="edge-sample base-edge"></span> Base</span>
+                <span class="legend-item"><span class="edge-sample override-edge"></span> Override</span>
+                <span class="legend-item"><span class="edge-sample ignored-edge"></span> Ignored</span>
+              </div>
+            </section>
+          </div>
+
+          <div class="tab-content" id="tab-code">
+            <section class="panel" id="code-panel">
+              <div class="code-file-tabs">
+                <button class="code-tab-btn active" data-file="types">types.ts</button>
+                <button class="code-tab-btn" data-file="resolve">resolve.ts</button>
+              </div>
+              <div id="code-container"></div>
+            </section>
+          </div>
 
           <section class="panel" id="result-panel">
             <h2>Resolved Channel Order</h2>
