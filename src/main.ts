@@ -85,12 +85,12 @@ function renderChannelEditor(): void {
     `;
 
     const nameInput = card.querySelector(".channel-name-input") as HTMLInputElement;
-    nameInput.addEventListener("change", () => {
+    nameInput.addEventListener("input", () => {
       const oldName = entry.name;
       entry.name = nameInput.value.trim();
-      // Update user channels if they referenced the old name
       userChannels = userChannels.map((uc) => (uc === oldName ? entry.name : uc));
       renderUserChannels();
+      resolve();
     });
 
     const removeBtn = card.querySelector(".btn-remove")!;
@@ -99,10 +99,11 @@ function renderChannelEditor(): void {
       userChannels = userChannels.filter((uc) => uc !== entry.name);
       renderChannelEditor();
       renderUserChannels();
+      resolve();
     });
 
     card.querySelectorAll<HTMLInputElement>(".relation-input").forEach((input) => {
-      input.addEventListener("change", () => {
+      input.addEventListener("input", () => {
         const field = input.dataset.field as "base" | "overrides";
         const value = input.value.trim();
         if (value) {
@@ -110,6 +111,7 @@ function renderChannelEditor(): void {
         } else {
           delete entry.relations[field];
         }
+        resolve();
       });
     });
 
@@ -121,6 +123,7 @@ function addChannel(): void {
   const name = `channel-${channels.length + 1}`;
   channels.push({ name, relations: {} });
   renderChannelEditor();
+  resolve();
 }
 
 // ── User channels ─────────────────────────────────────────────────────
@@ -143,6 +146,7 @@ function renderUserChannels(): void {
     }
     select.addEventListener("change", () => {
       userChannels[i] = select.value;
+      resolve();
     });
 
     const moveUpBtn = document.createElement("button");
@@ -153,6 +157,7 @@ function renderUserChannels(): void {
     moveUpBtn.addEventListener("click", () => {
       [userChannels[i - 1], userChannels[i]] = [userChannels[i], userChannels[i - 1]];
       renderUserChannels();
+      resolve();
     });
 
     const moveDownBtn = document.createElement("button");
@@ -163,6 +168,7 @@ function renderUserChannels(): void {
     moveDownBtn.addEventListener("click", () => {
       [userChannels[i], userChannels[i + 1]] = [userChannels[i + 1], userChannels[i]];
       renderUserChannels();
+      resolve();
     });
 
     const removeBtn = document.createElement("button");
@@ -171,6 +177,7 @@ function renderUserChannels(): void {
     removeBtn.addEventListener("click", () => {
       userChannels.splice(i, 1);
       renderUserChannels();
+      resolve();
     });
 
     const prioLabel = document.createElement("span");
@@ -188,10 +195,10 @@ function renderUserChannels(): void {
 
 function addUserChannel(): void {
   if (channels.length === 0) return;
-  // Pick first channel not already in user list, or the first channel
   const available = channels.find((ch) => !userChannels.includes(ch.name));
   userChannels.push(available?.name ?? channels[0].name);
   renderUserChannels();
+  resolve();
 }
 
 // ── Resolution ────────────────────────────────────────────────────────
